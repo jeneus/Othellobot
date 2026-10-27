@@ -1,20 +1,31 @@
 # Othellobot
-Othellobot is a 3-axis pick-and-place robotic platform that plays Othello, a two player board game played on an 8 by 8 grid. 
-<img width="490" height="872" alt="image" src="https://github.com/user-attachments/assets/07cb2f1a-e525-405f-812c-b34067a0bc01" />
+Othellobot is an automated, 3-axis pick-and-place robotic platform that plays Othello against a human opponent on a physical 8x8 grid.
 
-# Mechanical/Electromechanical Design
-The frame is assembled using 2020 extruded aluminum and 1/8" cast acrylic sheets. 
-Belt pulley systems coupled with microstepping-enabled stepper motors achieve precise x and y-axis motion without sensor feedback. 
-The custom z-axis actuator uses a high-torque 360 degrees servo motor and a rack-and-pinion mechanism equipped with a magnetic encoder to produce accurate vertical motion. 
-The TPU-based suction cup is connected to a solonoid valve and diaphragm vacuum pump to pick up acrylic tokens. 
-Custom drag chains hang off the linear rails to prevent wire tangling. 
-# PCB/Electronics Design
-The playing board is equipped with 64 individually addressable LEDs underneath a thin player of PLA. A pressure sensor is integrated to the pneumatic system to sense successful token grasping. The main PCB enables interfacing between the Arduino Nano, Raspberry Pi, and the rest of the electronics. It includes:
-- TMC5262 Smart Motion Controller and Stepper Motor
-- Voltage Regulators (one for providing power to LEDs/Servo, one for defining TMC5262 digital logic level)
-- Pressure sensor circuitry
-- Interfaces for motors, limit switches, LED matrix PCBs, encoder, vacuum pump, solenoid, and power terminal
-#Communications/Embedded Software
-- OV2643 Camera module detects user moves through OpenCV and image processing (edge detection, centroid placement, image distortion, interpolation)
-- Nano communicates with TMC5262s through SPI; software handling TMC5262 was completely hand-written
-- Nano uses a state machine structure to operate between game states
+<img width="512" height="910" alt="unnamed" src="https://github.com/user-attachments/assets/19b32877-47c6-42c2-8de5-e4dd35383fba" />
+
+# Mechanical & Electromechanical Design
+The frame is constructed from 2020 extruded aluminum and 1/8" laser-cut cast acrylic sheets. Belt pulley systems coupled with microstepping-enabled stepper motors achieve precise X and Y-axis motion without sensor feedback. The custom Z-axis actuator uses a high-torque 360-degree servo motor and a rack-and-pinion mechanism equipped with a magnetic encoder for accurate vertical positioning. The end-effector uses a TPU-based suction cup connected to a 4.5V DC diaphragm vacuum pump (ZR370-02PM), a solenoid valve and a pressure sensor to reliably manipulate acrylic game tokens. Custom drag chains route along the linear rails to manage wiring.
+
+<img width="512" height="909" alt="unnamed" src="https://github.com/user-attachments/assets/4e706cb5-397e-4e64-86d7-8a1fd4dd580f" />
+
+# PCB & Electronics Design
+The playing board integrates 64 individually addressable LEDs beneath a thin layer of PLA. A custom 4-layer PCB facilitates interfacing between the Arduino Nano, Raspberry Pi 4, and the peripheral electronics. The board features:
+- TMC5262 Smart Motion Controllers and Stepper Motor drivers
+- Dual voltage regulators (dedicated power for the LEDs/servo, and logic-level definition for the TMC5262s)
+- Pressure sensor conditioning circuitry
+- Centralized interfaces for motors, limit switches, the LED matrix, encoders, the vacuum pump, and the solenoid
+- PCBs were soldered and tested by hand (soldering iron, heat gun, multimeter)
+- All wires were crimped and managed by hand (JST-PH connectors, Dupont connectors, quick disconnected, ring terminals, zip ties, heat shrinks)
+- Power supply is selected to handle worst-case maximum loading
+
+<img width="4096" height="2896" alt="image" src="https://github.com/user-attachments/assets/4c148af1-7d8b-4c1e-9962-c529d6e31037" />
+<img width="1254" height="816" alt="image" src="https://github.com/user-attachments/assets/c68a7c98-06e4-410a-a007-532e67bd2333" />
+<img width="512" height="288" alt="unnamed" src="https://github.com/user-attachments/assets/3078c0f6-4eb6-4382-8de8-4a1b6b782d73" />
+
+# Communications, AI & Embedded Software
+
+Vision & AI: An OV2643 camera module tracks user moves using OpenCV for image processing (edge detection, centroid placement, image distortion correction, and interpolation). The game logic and opponent decision-making are driven by an AlphaZero reinforcement learning model built in PyTorch running on the Raspberry Pi 4.
+
+Firmware: The Arduino Nano operates on a custom state-machine architecture to transition smoothly between game states.
+
+Driver Integration: The Nano communicates with the TMC5262 drivers via SPI, utilizing a completely hand-written software implementation for low-level motor control.
