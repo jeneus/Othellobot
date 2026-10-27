@@ -1,3 +1,16 @@
+import sys
+import os
+
+# 1. Find exactly where OthelloBrain.py is located (.../othellobot_sw/rpi_sw)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 2. Go up one level (..), then into the alpha-zero-general folder
+alpha_zero_path = os.path.abspath(os.path.join(current_dir, '..', 'alpha-zero-general'))
+
+# 3. Add it to the system path
+if alpha_zero_path not in sys.path:
+    sys.path.append(alpha_zero_path)
+
 import numpy as np
 from MCTS import MCTS
 from othello.OthelloGame import OthelloGame
