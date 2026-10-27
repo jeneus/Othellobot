@@ -27,6 +27,8 @@ The playing board integrates 64 individually addressable LEDs beneath a thin lay
 
 Vision & AI: An OV2643 camera module tracks user moves using OpenCV for image processing (edge detection, centroid placement, image distortion correction, and interpolation). The game logic and opponent decision-making are driven by an AlphaZero reinforcement learning model built in PyTorch running on the Raspberry Pi 4 (or laptop).
 
+<img width="640" height="480" alt="board_state_overlay" src="https://github.com/user-attachments/assets/76702032-2a80-4a2f-b1b5-336301e9441a" />
+
 Firmware: The Arduino Nano operates on a custom state-machine architecture to transition smoothly between game states.
 
-Driver Integration: The Nano communicates with the TMC5262 drivers via SPI, utilizing a completely hand-written software implementation for low-level motor control.
+Driver Integration: The Nano communicates with the TMC5262 drivers via SPI using a completely hand-written software implementation for low-level motor control.
