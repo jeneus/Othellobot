@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../../../Python/othellobot_sw"
+		},
+		{
+			"name": "othellobot_nano_sw",
+			"path": ".."
+		},
+		{
+			"name": "alpha-zero-general",
+			"path": "../../../../Solidworks Files/Othello Robot/alpha-zero-general"
+		}
+	],
+	"settings": {}
+}
