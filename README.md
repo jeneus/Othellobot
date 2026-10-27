@@ -1,6 +1,7 @@
 # Othellobot
 Othellobot is a 3-axis pick-and-place robotic platform that plays Othello, a two player board game played on an 8 by 8 grid. 
 <img width="490" height="872" alt="image" src="https://github.com/user-attachments/assets/07cb2f1a-e525-405f-812c-b34067a0bc01" />
+
 # Mechanical/Electromechanical Design
 The frame is assembled using 2020 extruded aluminum and 1/8" cast acrylic sheets. 
 Belt pulley systems coupled with microstepping-enabled stepper motors achieve precise x and y-axis motion without sensor feedback. 
