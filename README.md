@@ -8,7 +8,7 @@ Othellobot is an automated, 3-axis pick-and-place robotic platform that plays Ot
 The frame is constructed from 2020 extruded aluminum and 1/8" laser-cut cast acrylic sheets. Belt pulley systems coupled with microstepping-enabled stepper motors achieve precise X and Y-axis motion without sensor feedback. The custom Z-axis actuator uses a high-torque 360-degree servo motor and a rack-and-pinion mechanism equipped with a magnetic encoder for accurate vertical positioning. The end-effector uses a TPU-based suction cup connected to a 4.5V DC diaphragm vacuum pump (ZR370-02PM), a solenoid valve and a pressure sensor to reliably manipulate acrylic game tokens. Custom drag chains route along the linear rails to manage wiring.
 
 <img width="512" height="909" alt="unnamed" src="https://github.com/user-attachments/assets/4e706cb5-397e-4e64-86d7-8a1fd4dd580f" />
-![Completed prototype](images/end_effector_assembly2.jpg)
+![Completed prototype](images/end_effector_assembly2.JPG)
 
 
 # PCB & Electronics Design
