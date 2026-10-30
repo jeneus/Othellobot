@@ -9,8 +9,13 @@ The frame is constructed from 2020 extruded aluminum and 1/8" laser-cut cast acr
 
 <img width="512" height="909" alt="unnamed" src="https://github.com/user-attachments/assets/4e706cb5-397e-4e64-86d7-8a1fd4dd580f" />
 
-![Completed prototype](images/end_effector_assembly2.JPG)
+![exploded_EE](images/end_effector_assembly2.JPG)
 
+![exploded_x_axis_drive](images/x_axis_belt_pulley_subassembly.JPG)
+
+![exploded_board](images/board_assembly.JPG)
+
+![bot_layer](images/othellobot_frame_bot_layer_and_elec_ortho.JPG)
 
 # PCB & Electronics Design
 The playing board integrates 64 individually addressable LEDs beneath a thin layer of PLA. A custom 4-layer PCB facilitates interfacing between the Arduino Nano, Raspberry Pi 4, and the peripheral electronics. The board features:
