@@ -6,16 +6,37 @@ Othellobot is an automated, 3-axis pick-and-place robotic platform that plays Ot
 
 # Technical Specifications
 
-| Specification Category | Axis / Parameter | Measured Metric |
-| :--- | :--- | :--- |
-| **Workspace / Travel Distance** | X-Axis Travel | 231.2 mm |
-| | Y-Axis Travel | 264.8 mm |
-| **Precision** | X-Axis Precision | 0.04 mm |
-| | Y-Axis Precision | 0.015 mm |
-| **Resolution** | X-Axis Resolution | < 0.01 mm |
-| | Y-Axis Resolution | < 0.01 mm |
-| **Max Velocity** | X-Axis Velocity | 0.33 m/s |
-| | Y-Axis Velocity | 0.33 m/s |
+<table>
+  <thead>
+    <tr>
+      <th>Performance Metric</th>
+      <th>X-Axis</th>
+      <th>Y-Axis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Workspace / Travel</b></td>
+      <td>231.2 mm</td>
+      <td>264.8 mm</td>
+    </tr>
+    <tr>
+      <td><b>Precision ($3\sigma$)</b></td>
+      <td>0.04 mm</td>
+      <td>0.015 mm</td>
+    </tr>
+    <tr>
+      <td><b>Resolution</b></td>
+      <td>&lt; 0.01 mm</td>
+      <td>&lt; 0.01 mm</td>
+    </tr>
+    <tr>
+      <td><b>Max Velocity</b></td>
+      <td>0.33 m/s</td>
+      <td>0.33 m/s</td>
+    </tr>
+  </tbody>
+</table>
 
 # Mechanical & Electromechanical Design
 The frame is constructed from 2020 extruded aluminum and 1/8" laser-cut cast acrylic sheets. Belt pulley systems coupled with microstepping-enabled stepper motors achieve precise X and Y-axis motion without sensor feedback. The custom Z-axis actuator uses a high-torque 360-degree servo motor and a rack-and-pinion mechanism equipped with a magnetic encoder for accurate vertical positioning. The end-effector uses a TPU-based suction cup connected to a 4.5V DC diaphragm vacuum pump (ZR370-02PM), a solenoid valve and a pressure sensor to reliably manipulate tokens on and across the board. Custom drag chains route along the linear rails to manage wiring. Various 3d-printed mounts for the belt drives, limit switches, motors, linear rails, and camera were designed in SolidWorks.
