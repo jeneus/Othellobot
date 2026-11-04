@@ -6,11 +6,16 @@ Othellobot is an automated, 3-axis pick-and-place robotic platform that plays Ot
 
 # Technical Specifications
 
-| Component / Tool | Function / Role | Key Metric / Result |
-| --- | --- | --- |
-| TMC5262 | Smart Stepper Driver | 1/256 microstepping |
-| KiCad | PCB Design Tool | 4-layer custom board |
-| Raspberry Pi 4 | Master Processor | OpenCV / AlphaZero pipeline |
+| Specification Category | Axis / Parameter | Measured Metric |
+| :--- | :--- | :--- |
+| **Workspace / Travel Distance** | X-Axis Travel | 231.2 mm |
+| | Y-Axis Travel | 264.8 mm |
+| **Precision** | X-Axis Precision | 0.04 mm |
+| | Y-Axis Precision | 0.015 mm |
+| **Resolution** | X-Axis Resolution | < 0.01 mm |
+| | Y-Axis Resolution | < 0.01 mm |
+| **Max Velocity** | X-Axis Velocity | 0.33 m/s |
+| | Y-Axis Velocity | 0.33 m/s |
 
 # Mechanical & Electromechanical Design
 The frame is constructed from 2020 extruded aluminum and 1/8" laser-cut cast acrylic sheets. Belt pulley systems coupled with microstepping-enabled stepper motors achieve precise X and Y-axis motion without sensor feedback. The custom Z-axis actuator uses a high-torque 360-degree servo motor and a rack-and-pinion mechanism equipped with a magnetic encoder for accurate vertical positioning. The end-effector uses a TPU-based suction cup connected to a 4.5V DC diaphragm vacuum pump (ZR370-02PM), a solenoid valve and a pressure sensor to reliably manipulate acrylic game tokens. Custom drag chains route along the linear rails to manage wiring.
