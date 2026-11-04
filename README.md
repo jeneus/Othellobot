@@ -55,7 +55,7 @@ The playing board integrates 64 individually addressable LEDs beneath a thin lay
 - All wires were crimped and managed by hand (JST-PH connectors, Dupont connectors, quick disconnected, ring terminals, zip ties, heat shrinks)
 - Power supply is selected to handle worst-case maximum loading
 
-<img width="4096" height="2896" alt="image" src="https://github.com/user-attachments/assets/4c148af1-7d8b-4c1e-9962-c529d6e31037" />
+<img width="4096" height="2896" alt="Schematic of Main Othellobot PCB" src="images/pcb_schematic.JPG" />
 <img width="1254" height="816" alt="image" src="https://github.com/user-attachments/assets/c68a7c98-06e4-410a-a007-532e67bd2333" />
 <img width="512" height="288" alt="unnamed" src="https://github.com/user-attachments/assets/3078c0f6-4eb6-4382-8de8-4a1b6b782d73" />
 
