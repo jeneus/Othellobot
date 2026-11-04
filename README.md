@@ -25,21 +25,21 @@ The frame is constructed from 2020 extruded aluminum and 1/8" laser-cut cast acr
 <table>
   <tr>
     <td align="center">
-      <img src="images/end_effector_assembly2.JPG" width="100%" alt="Exploded End Effector Assembly"><br/>
+      <img src="images/exploded_end_effector_assembly.JPG" width="100%" alt="Exploded End Effector Assembly"><br/>
       <b>Exploded View of End Effector Assembly</b>
     </td>
     <td align="center">
-      <img src="images/x_axis_belt_pulley_subassembly.JPG" width="100%" alt="Exploded X-Axis Drive Subassembly"><br/>
+      <img src="images/exploded_x_axis_assembly.JPG" width="100%" alt="Exploded X-Axis Drive Subassembly"><br/>
       <b>Exploded View of X-Axis Drive Subassembly</b>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="images/board_assembly.JPG" width="100%" alt="Exploded Board Assembly"><br/>
+      <img src="images/exploded_board_assembly.JPG" width="100%" alt="Exploded Board Assembly"><br/>
       <b>Exploded View of Board Assembly</b>
     </td>
     <td align="center">
-      <img src="images/othellobot_frame_bot_layer_and_elec_ortho.JPG" width="100%" alt="Bot Layer and Electronics Orthogonal View"><br/>
+      <img src="images/bot_layer_assembled.JPG" width="100%" alt="Bot Layer and Electronics Orthogonal View"><br/>
       <b>Bottom Layer of Robot Frame</b>
     </td>
   </tr>
