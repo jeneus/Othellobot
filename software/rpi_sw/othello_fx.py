@@ -217,7 +217,7 @@ import numpy as np
 def calibrate_camera():
     """Runs once at the start of the game to lock onto the 4 starting pieces."""
     print("Calibrating camera... Please ensure ONLY the 4 starting tokens are on the board.")
-    cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
     if not cap.isOpened():
         raise RuntimeError("Could not open USB camera.")

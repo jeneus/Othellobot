@@ -28,15 +28,15 @@ const byte AS5600_ADDRESS = 0x36;
 // Ramp profile parameters
 const int VSTART = 0;
 const int VSTOP = 200;
-const int V1 = 150;
-const int V2 = 200;
-const int VMAX = 250;
-const uint16_t Ac1 = 40000;
-const int Ac2 = 20000;
-const int AMAX = 10000;
-const int DMAX = 10000;
-const int D2 = 20000;
-const uint16_t D1 = 40000;
+const int V1 = 300;
+const int V2 = 400;
+const int VMAX = 500;
+const uint32_t Ac1 = 120000; //40000
+const uint32_t Ac2 = 100000;      //20000
+const uint32_t AMAX = 80000;     //10000
+const uint32_t DMAX = 90000;
+const uint32_t D2 = 110000;
+const uint32_t D1 = 150000;
 
 // --- CALIBRATION COORDINATES ---
 const long BOARD_0_0_X = 9000; 

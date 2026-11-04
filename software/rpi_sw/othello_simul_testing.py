@@ -5,28 +5,37 @@ import cv2
 import numpy as np
 import othello_fx
 import os
+from OthelloBrain import OthelloBrain
 
+#establish UART with arduino
 nano = serial.Serial(port='COM9', baudrate=9600, timeout=1)
 
 print("Waiting for Arduino to home...")
 while True:
+    #get number of bytes in input buffer
     if nano.in_waiting > 0:
         msg = nano.readline().decode('utf-8', errors='ignore').strip()
         if msg == "ARDUINO_READY":
             print("Arduino is ready!")
             break
 
+#GAME SETUP
+
 alpha_zero_path = os.path.join(os.path.dirname(__file__), 'alpha-zero-general')
 if alpha_zero_path not in sys.path:
     sys.path.append(alpha_zero_path)
 
-from OthelloBrain import OthelloBrain
-
 ai_brain = OthelloBrain()
+#keep track of number of tokens in each slot for AI to pick up
 cpu_token_slots = [11, 11, 11]
-
+#keep track of number of turns
 turn = 0
+#game is over if = 1, else =0
+game_over = 0
+#black always starts
+player = -1
 
+#define startinb board; 0 is unoccupied, 1 is white, -1 is black
 oboard = np.array([
     [ 0,  0,  0,  0,  0,  0,  0,  0],
     [ 0,  0,  0,  0,  0,  0,  0,  0],
@@ -38,17 +47,16 @@ oboard = np.array([
     [ 0,  0,  0,  0,  0,  0,  0,  0]
 ])
 
-game_over = 0
-
-print("1 - white, -1 - black")
-player = int(input())
+#turn selection; should be done with button interface in the future
+print("0 - white, 1 - black")
+first_player = int(input())
 
 print("Starting calibration phase...")
 saved_camera_matrix = othello_fx.calibrate_camera()
 
 print("Game starting!")
 
-cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 time.sleep(1) 
 
 legal_moves, flip_list = othello_fx.find_legal_moves(oboard, player, -player)
@@ -56,17 +64,13 @@ print("Sending initial board to Arduino...")
 nano.write(bytearray(othello_fx.get_LUT_board(oboard, legal_moves)))
 time.sleep(0.5) 
 
+#keep looping until game is over
 while game_over != 1:
-    
+    #based on current board state and player turn, find all legal moves, and all tokens TBF associated with each legal move
     legal_moves, flip_list = othello_fx.find_legal_moves(oboard, player, -player) 
-    
-    if legal_moves.size == 0:
-        game_over = 1
-        
-    if not game_over:
-        print(oboard)
-        
-        if turn % 2 == 0:
+    print(oboard)
+    if legal_moves.size > 0:
+        if turn % 2 + first_player == 1:
             print("Waiting for player to physically place a piece...")
             valid_move_made = False
             
@@ -105,7 +109,7 @@ while game_over != 1:
                     except Exception:
                         pass 
                         
-        elif turn % 2 == 1:
+        elif turn % 2 + first_player == 0:
             print("CPU is thinking...")
             cpu_move = ai_brain.get_best_move(oboard, player)
             cpu_move = np.array(cpu_move)
@@ -133,8 +137,8 @@ while game_over != 1:
             
             nano.write(bytearray(othello_fx.get_LUT_board(oboard, next_legal_moves)))
             print("CPU move sent to LEDs successfully!")
-        
-        turn += 1
-        player = -player
+    
+    turn += 1
+    player = -player
 
 print("Game has ended. GG!")

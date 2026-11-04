@@ -55,57 +55,83 @@ void velocity_control(int driver_CS, int driver_EN, int vrpm, int arpm, int dir)
   tmc5262_writeRegister(driver_CS, TMC5262_VMAX, vrpm_to_vtmc(vrpm));
 }
 
-float homing_process(int driver_CS, int driver_EN) {
+float homing_process(int driver_CS, int driver_EN) 
+{
+  //move away from left limit switch until it is not hit
   while((tmc5262_readRegister(driver_CS, TMC5262_RAMP_STAT) & 0b1) == 0b1) {
     velocity_control(driver_CS, driver_EN, 150, 20000, 0b1);
     delay(1000);
   }
   
+  //move towards left limit switch
   velocity_control(driver_CS, driver_EN, 150, 20000, 0b10);
 
+  //don't do anything until switch is hit
   while(!((tmc5262_readRegister(driver_CS, TMC5262_RAMP_STAT) & 0b1) == 0b1)) {}
 
+  //set motor velocity to 0
   tmc5262_writeRegister(driver_CS, TMC5262_XACTUAL, 0);
+
+  //move towards opposite direction
   velocity_control(driver_CS, driver_EN, 150, 20000, 0b1);
 
+  //x-axis has limit switches on both ends of the linea rail
   if (driver_CS == CS_X) {
+    //keep moving until right switch is hit
     while(!((tmc5262_readRegister(driver_CS, TMC5262_RAMP_STAT) & 0b10) == 0b10)) {}
+    //change ramping mode to hold mode
     tmc5262_writeRegister(driver_CS, TMC5262_RAMPMODE, 0x3);
+    //set end_pos as latched xactual
     end_pos = tmc5262_readRegister(driver_CS, TMC5262_XLATCH);
   } 
+  //homing procedure is different for y-axis as it uses stallguard (only 1 limit switch)
   else if (driver_CS == CS_Y) {
+    //wait until desired velocity is reached
     while (!(tmc5262_fieldRead(CS_Y, TMC5262_VELOCITY_REACHED_FIELD))) {}
+    //enable stop by stallguard
     tmc5262_fieldWrite(CS_Y, TMC5262_SG_STOP_FIELD, 1);
+    //wait until stall is detected
     while(!(tmc5262_fieldRead(CS_Y, TMC5262_EVENT_STOP_SG_FIELD))) {}
+    //disable stop by stallguard
     tmc5262_fieldWrite(CS_Y, TMC5262_SG_STOP_FIELD, 0);
+    //set end_pos as current xactual
     end_pos = tmc5262_readRegister(driver_CS, TMC5262_XACTUAL);
+    //enable stealthchop instead of spreadcycle
     tmc5262_fieldWrite(CS_Y, TMC5262_EN_STEALTHCHOP_FIELD, 1);
   }
-
+  //change xactual to the value computed from homing
   tmc5262_writeRegister(driver_CS, TMC5262_XACTUAL, end_pos);
+  //set xtarget to current position so that motor doesn't move after switching to positioning mode
   tmc5262_writeRegister(driver_CS, TMC5262_XTARGET, end_pos);
+  //change ramping mode to positioning mode
   tmc5262_writeRegister(driver_CS, TMC5262_RAMPMODE, 0x0);
-
+  //set 8-point ramp motion profile
   set_ramp_param(driver_CS);
+
+  Serial.print("Travel range:");
+  Serial.println(xlatch_to_dist(end_pos));
 
   return end_pos;
 }
 
-uint32_t bitmask(uint32_t register_read, uint32_t mask, uint32_t new_bits) {
+uint32_t bitmask(uint32_t register_read, uint32_t mask, uint32_t new_bits) 
+{
   return (register_read & ~mask) | new_bits;
 }
 
-void set_ramp_param(int driver_CS) {
+void set_ramp_param(int driver_CS) 
+{
+  //set velocities
   tmc5262_writeRegister(driver_CS, TMC5262_VSTART, vrpm_to_vtmc(VSTART));
   tmc5262_writeRegister(driver_CS, TMC5262_VSTOP, VSTOP);
   tmc5262_writeRegister(driver_CS, TMC5262_V1, vrpm_to_vtmc(V1));
   tmc5262_writeRegister(driver_CS, TMC5262_V2, vrpm_to_vtmc(V2));
   tmc5262_writeRegister(driver_CS, TMC5262_VMAX, vrpm_to_vtmc(VMAX));
     
+  //set accelerations
   tmc5262_writeRegister(driver_CS, TMC5262_A1, arpm_to_atmc(Ac1));
   tmc5262_writeRegister(driver_CS, TMC5262_A2, arpm_to_atmc(Ac2));
   tmc5262_writeRegister(driver_CS, TMC5262_AMAX, arpm_to_atmc(AMAX));
-    
   tmc5262_writeRegister(driver_CS, TMC5262_DMAX, arpm_to_atmc(DMAX));
   tmc5262_writeRegister(driver_CS, TMC5262_D2, arpm_to_atmc(D2));
   tmc5262_writeRegister(driver_CS, TMC5262_D1, arpm_to_atmc(D1));

@@ -4,7 +4,7 @@ import numpy as np
 # ==========================================
 # 1. Start Live USB Camera
 # ==========================================
-cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
 if not cap.isOpened():
     cap.release()

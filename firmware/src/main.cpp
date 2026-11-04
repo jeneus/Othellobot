@@ -36,10 +36,12 @@ int average = 1023;
 
 unsigned long lastCameraRequestTime = 0;
 
+//define max. clock frequency, data order and SPI data mode wrt. TMC5262
 SPISettings mySetting(FCLK, MSBFIRST, SPI_MODE3);
 
 void setup() 
 {
+  //configure digital output pins
   pinMode(DRV_EN_X, OUTPUT);
   pinMode(CS_X, OUTPUT);
   pinMode(DRV_EN_Y, OUTPUT);
@@ -48,6 +50,7 @@ void setup()
   pinMode(PUMP_PIN, OUTPUT);    
   myservo.attach(SERVO_PIN);    
 
+  //output 1 to active LOW pins
   digitalWrite(DRV_EN_X, HIGH);
   digitalWrite(DRV_EN_Y, HIGH);
   digitalWrite(CS_X, HIGH);
@@ -57,29 +60,38 @@ void setup()
   FastLED.addLeds<WS2812B, NRZ_PIN, GRB>(led_matrix, NUM_LEDS);
   FastLED.setBrightness(BRIGHTNESS);
 
+  //SPI init
   SPI.begin();
-  Wire.begin();
   
+  //I2C init
+  Wire.begin();
+
+  //Serial/UART init
   Serial.begin(9600);
   Serial.setTimeout(100); 
 
   delay(1000);
 
+  //configure TMC5262 motor drivers
   tmc5262_config(CS_X);
   tmc5262_config(CS_Y);
 
+  //homing procedure
   x_max = homing_process(CS_X, DRV_EN_X);
   y_max = homing_process(CS_Y, DRV_EN_Y);
 
+  //clear arduino serial receive buffer
   while (Serial.available() > 0) {
     Serial.read(); 
   }
   
+  //handshake, arduino is ready
   Serial.println("ARDUINO_READY"); 
 } 
 
 void loop() 
 {
+  //loop through states of state machine; currentState initialized to STARTING_BOARD
   switch (currentState) 
   {
     case STARTING_BOARD:
@@ -196,13 +208,16 @@ void loop()
       }
       break;
   }
+      
 }
 
+//SPI read + write transaction (set CS pin low, transfer data byte(s), update pointer content, set CS pin high)
 void tmc5262_readWriteSPI(uint16_t icID, uint8_t *data, uint16_t dataLength)
 {
   SPI.beginTransaction(mySetting);
   digitalWrite(icID, LOW);
 
+  //go through all 5 bytes of 40 bit datagram, writing + reading
   for (uint16_t i = 0; i < dataLength; i++)
   {
     *(data + i) = SPI.transfer(*(data + i));
