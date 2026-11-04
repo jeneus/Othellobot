@@ -40,7 +40,7 @@ The frame is constructed from 2020 extruded aluminum and 1/8" laser-cut cast acr
     </td>
     <td align="center">
       <img src="images/othellobot_frame_bot_layer_and_elec_ortho.JPG" width="100%" alt="Bot Layer and Electronics Orthogonal View"><br/>
-      <b>Exploded View of Bottom Frame & Electronics</b>
+      <b>Bottom Layer of Robot Frame</b>
     </td>
   </tr>
 </table>
