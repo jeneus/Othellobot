@@ -1,9 +1,7 @@
 # Othellobot
 Othellobot is an automated, 3-axis pick-and-place robotic platform that plays Othello against a human opponent on a physical 8x8 grid. Instead of flipping tokens on the board at the end of every turn, the colors of the cells change with respect to the state of the game. 
 
-
-
-
+https://github.com/user-attachments/assets/59fe86a0-9255-4ceb-aa38-ffe0f414b1d5
 <img width="512" height="910" alt="unnamed" src="https://github.com/user-attachments/assets/19b32877-47c6-42c2-8de5-e4dd35383fba" />
 <img width="512" height="288" alt="unnamed" src="https://github.com/user-attachments/assets/8f971992-41a4-441e-a794-52232dbe4bce" />
 
